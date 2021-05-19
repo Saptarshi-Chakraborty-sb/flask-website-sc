@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='logo.png')}}" />
+    <title>Dashboard</title>
+    <style>
+        body {
+            margin: 0%;
+            padding: 0%;
+            background-image: url("{{ url_for('static', filename='body.jpg')}}");
+            color: azure;
+        }
+        
+        .navbar {
+            display: inline-block;
+            /* position: relative;
+            left: 60%;
+            top: 0px; */
+        }
+        
+        .navbar a,
+        .navbar a:active {
+            /* border: 3px solid black; */
+            color: beige;
+            text-decoration: none;
+            font-size: 160%;
+            padding: 10px 20px;
+            margin: 0%;
+        }
+        
+        .navbar a:hover {
+            /* border: 3px solid rgb(247, 4, 4); */
+            background: rgba(245, 222, 179, 0.466);
+            color: rgb(4, 15, 0);
+            text-decoration: none;
+            font-size: 160%;
+            padding: 10px 20px;
+            margin: 0%;
+        }
+        
+        .header {
+            padding: 0%;
+            margin: 0%;
+            /* border: 3px solid rgba(229, 229, 188, 0.986); */
+            padding: 10px 0%;
+            background: linear-gradient(50deg, rgb(24, 23, 23), rgb(255, 0, 0), rgb(5, 240, 208), rgb(255, 0, 0), rgb(24, 23, 23));
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div class="navbar">
+            <a href="/">Home</a>
+            <a href="/contact">Contact Us</a>
+            <a href="/post">Posts</a>
+            <a href="/login">Log In</a>
+        </div>
+    </div>
+    <div class="body">
+        <h1>This is Admin Dashboard</h1>
+        <p>You can Add, Delete or Edit Posts Here.</p>
+    </div>
+
+
+</body>
+
+</html>

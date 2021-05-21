@@ -84,7 +84,7 @@
     <div class="header">
         <div class="navbar">
             <a href="/">Home</a>
-            <a href="/post">Posts</a>
+            <a href="/post">Android App</a>
             <a href="/login">Log In</a>
             <a href="/dashboard">Dashboard</a>
         </div>
@@ -95,20 +95,36 @@
     </div>
     <div class="form">
         <form action="/contact" method="POST" novalidate>
-            <!-- Name -->
-            Name: <input type="text" name="name" placeholder="Your Name">
-            <br>
-            <!-- Phone -->
-            Phone: <input type="tel" name="phone" placeholder="Phone Number">
-            <br>
-            <!-- Email -->
-            Email: <input type="email" name="email" placeholder="Your Email">
-            <br>
-            <!-- Message -->
-            Message: <input type="textarea" name="message" placeholder="Write Your Opinion Here">
-            <br>
-            <input type="submit" Value="Send">
+            <table>
+                <tr>
+                    <td>Name</td>
+                    <th>&nbsp; : &nbsp;&nbsp;</th>
+                    <td><input type="text" name="name" placeholder="Your Name"></td>
+
+                </tr>
+                <tr>
+                    <td>Phone</td>
+                    <th>&nbsp; : &nbsp;&nbsp;</th>
+                    <td><input type="tel" name="phone" placeholder="Phone Number"></td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <th>&nbsp; : &nbsp;&nbsp;</th>
+                    <td><input type="email" name="email" placeholder="Your Email"></td>
+                </tr>
+                <tr>
+                    <td>Message</td>
+                    <th>&nbsp; : &nbsp;&nbsp;</th>
+                    <td><input type="textarea" name="message" placeholder="Write Your Opinion Here"></td>
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td><input type="submit" Value="Send"></td>
+                </tr>
         </form>
+        </table>
     </div>
     <div class="footer">
         <a href="https://saptarshichakraborty.wix.com/tgsweb" target="_blank" id="img1"><img src="{{ url_for('static', filename='website_icon.png')}}" alt="My Online Website" height="50px" width="50px"></a>

@@ -53,21 +53,69 @@
         }
         
         .footer {
-            border: 3px solid Black;
+            /* border: 3px solid Black; */
             background-color: cadetblue;
             width: 100%;
             position: fixed;
             left: 0%;
             bottom: 0px;
-            display: block;
+            margin: auto;
         }
         
         .footer a img {
             align-items: center;
-            display: inline-block;
+            /* display: inline -block; */
+            margin: auto;
+        }
+        
+        .footer .social {
+            /* display: inline-block; */
+            padding: 0%;
+            width: auto;
+            border: 2px solid red;
             margin: auto;
         }
         /* ~~~~~~~  Template CSS End  ~~~~~~~~ */
+        
+        .content {
+            /* display: inline-block; */
+            padding: 7px;
+            /* border: 2px solid white; */
+            width: 50em;
+            margin: auto;
+        }
+        
+        .content a {
+            text-decoration: none;
+            color: cyan;
+        }
+        
+        .content h1 {
+            /* text-decoration: none; */
+            color: rgb(241, 224, 203);
+            margin: 0%;
+            padding: 0%;
+        }
+        
+        .content h1:hover {
+            /* text-decoration: none; */
+            color: rgb(0, 0, 0);
+            margin: 0%;
+            padding: 0%;
+        }
+        
+        .content p {
+            font-size: 25px;
+            padding: 0%;
+            margin: 7px;
+        }
+        
+        .content hr {
+            border-color: rgb(255, 0, 255);
+            background-color: rgb(255, 0, 255);
+            padding: 0%;
+            margin: auto;
+        }
     </style>
 </head>
 
@@ -75,7 +123,7 @@
     <div class="header">
         <div class="navbar">
             <a href="/contact">Contact Us</a>
-            <a href="/post">Posts</a>
+            <a href="/post">Android Apps</a>
             <a href="/login">Log In</a>
             <a href="/dashboard">Dashboard</a>
         </div>
@@ -83,11 +131,33 @@
     <div class="body">
         <h1>Welcome the Home Page....</h1>
         <p>This Website serves the Download link of some Moded Applications</p>
+        {% for post in posts %}
+        <div class="content">
+            <table>
+                <tr>
+                    <td>
+                        <a href="/post/{{post.slug}}">
+                            <h1>{{post.title}}</h1>
+                            <a href="/post/{{post.slug}}">
+                                <p class="tagline">
+                                    {{post.details}}
+                                </p>
+                            </a>
+                    </td>
+                    <td><img src="{{ url_for('static', filename='logo.png')}}" height="60em" width="60em"></td>
+                </tr>
+            </table>
+            <hr>
+            <br><br>
+        </div>
+        {% endfor %}
     </div>
 
     <div class="footer">
-        <a href="https://saptarshichakraborty.wix.com/tgsweb" target="_blank" id="img1"><img src="{{ url_for('static', filename='website_icon.png')}}" alt="My Online Website" height="50px" width="50px"></a>
-        <a href="https://github.com/Saptarshi-Chakraborty-sb" target="_blank" id="img2"><img src="{{ url_for('static', filename='github_icon.png')}}" alt="My Online Website" height="50px" width="50px"></a>
+        <div class="social">
+            <a href="https://saptarshichakraborty.wix.com/tgsweb" target="_blank" id="img1"><img src="{{ url_for('static', filename='website_icon.png')}}" alt="My Online Website" height="50px" width="50px"></a>
+            <a href="https://github.com/Saptarshi-Chakraborty-sb" target="_blank" id="img2"><img src="{{ url_for('static', filename='github_icon.png')}}" alt="My Online Website" height="50px" width="50px"></a>
+        </div>
     </div>
 </body>
 

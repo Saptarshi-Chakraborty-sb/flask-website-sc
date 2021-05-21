@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='logo.png')}}" />
-    <title>Posts</title>
+    <title>Android Apps</title>
     <style>
         /* ~~~~~~~  Template CSS Start  ~~~~~~~~ */
         
@@ -53,7 +53,7 @@
         }
         
         .footer {
-            border: 3px solid Black;
+            /* border: 3px solid Black; */
             background-color: cadetblue;
             width: 100%;
             position: fixed;
@@ -68,6 +68,75 @@
             margin: auto;
         }
         /* ~~~~~~~  Template CSS End  ~~~~~~~~ */
+        
+        .posts {
+            border: 3px solid white;
+            background-color: rgba(42, 236, 220, 0.815);
+            color: rgb(197, 2, 83);
+            display: inline-block;
+            width: 60%;
+            padding: 0%;
+            margin: 2px 25px 5px 100px;
+        }
+        
+        .posts img {
+            width: 0vw;
+            margin: 5px;
+            float: left;
+        }
+        
+        .posts .h {
+            font-weight: bolder;
+            font-size: 200%;
+            display: inline-block;
+            margin: 15px 50px;
+        }
+        
+        .posts .d {
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-weight: bolder;
+            color: rgb(24, 21, 21);
+            font-size: 140%;
+            display: inline-block;
+            margin: 15px 50px;
+        }
+        
+        .date {
+            font-weight: bolder;
+            color: rgb(237, 237, 235);
+            font-size: 90%;
+            display: inline-block;
+            position: relative;
+            top: 0%;
+            right: -3%;
+            margin: 15px 50px;
+        }
+        
+        .posts a,
+        .post a:active {
+            border: 2px solid green;
+            border-radius: 2px;
+            font-size: 20px;
+            font-weight: bolder;
+            font-style: oblique;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-decoration: none;
+            color: honeydew;
+            padding: 5px;
+            margin: auto auto;
+            margin-top: 20px;
+            margin-right: 20px;
+            float: right;
+        }
+        
+        hr {
+            padding: 0%;
+            margin: 0%;
+        }
+        
+        .download {
+            background-color: violet;
+        }
     </style>
 </head>
 
@@ -81,13 +150,21 @@
         </div>
     </div>
     <div class="body">
-        <h1>Welcome the Post Page</h1>
+        <h1>Welcome to This Page</h1>
         <p>You can see Download Your Favourite App form Here</p>
     </div>
-
-    <div class="footer">
-        <a href="https://saptarshichakraborty.wix.com/tgsweb" target="_blank" id="img1"><img src="{{ url_for('static', filename='website_icon.png')}}" alt="My Online Website" height="50px" width="50px"></a>
-        <a href="https://github.com/Saptarshi-Chakraborty-sb" target="_blank" id="img2"><img src="{{ url_for('static', filename='github_icon.png')}}" alt="My Online Website" height="50px" width="50px"></a>
+    <div class="posts">
+        <img href="{{ url_for('static', filename='logo.png')}}" alt="logo " height="80px " width="80px ">
+        <p class="h ">{{post.title}}</p>
+        <a href="{{post.dn_link}} " target="_blank " id="download">Download</a>
+        <p class="d ">{{post.details}}</p>
+        <hr>
+    </div>
+    <br>
+    <p class="date ">Published On: {{post.date}}</p>
+    <div class="footer ">
+        <a href="https://saptarshichakraborty.wix.com/tgsweb " target="_blank " id="img1 "><img src="{{ url_for( 'static', filename='website_icon.png' )}} " alt="My Online Website " height="50px " width="50px "></a>
+        <a href="https://github.com/Saptarshi-Chakraborty-sb " target="_blank " id="img2 "><img src="{{ url_for( 'static', filename='github_icon.png' )}} " alt="My Online Website " height="50px " width="50px "></a>
     </div>
 </body>
 

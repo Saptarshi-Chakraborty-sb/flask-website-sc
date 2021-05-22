@@ -68,6 +68,36 @@
             margin: auto;
         }
         /* ~~~~~~~  Template CSS End  ~~~~~~~~ */
+        
+        form {
+            width: 36%;
+            padding: 0%;
+            margin: auto;
+        }
+        
+        .login label {
+            font-size: 30px;
+            padding: 50px 60px 5px 15px;
+            margin: auto;
+        }
+        
+        .login input {
+            font-size: 20px;
+            font-weight: bolder;
+            background-color: burlywood;
+            padding: 2px;
+            margin: auto;
+        }
+        
+        form #submit_btn {
+            font-family: 'Algerian', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 20px;
+            font-weight: bolder;
+            background-color: chartreuse;
+            width: 100px;
+            padding: 5px;
+            margin: auto;
+        }
     </style>
 </head>
 
@@ -76,13 +106,29 @@
         <div class="navbar">
             <a href="/">Home</a>
             <a href="/contact">Contact Us</a>
-            <a href="/post">Posts</a>
-            <a href="/dashboard">Dashboard</a>
         </div>
     </div>
     <div class="body">
         <h1>Log In to this Website</h1>
         <p>This will send you to Dashboard form where you can Control the Posts of the Website</p>
+    </div>
+    <br><br><br>
+    <div class="login">
+        <form action="/login" method="POST">
+            <caption id="cpt">
+                <font size="35" color="chartreuse" face="Chiller" style="font-weight: bolder;">Enter Admin Username and Password</font>
+            </caption>
+            <br>
+            <label for="uname">Username</label>
+            <input type="text" placeholder="Admin Username" name="uname" id="input_uname">
+            <br><br>
+            <label for="passw">Password</label>
+            <input type="password" placeholder="Admin Password" name="passw" id="input_passw" pattern="*">
+            <br><br>
+            <center>
+                <input type="submit" value="Log In" id="submit_btn">
+            </center>
+        </form>
     </div>
 
     <div class="footer">

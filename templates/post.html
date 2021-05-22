@@ -146,15 +146,15 @@
             <a href="/">Home</a>
             <a href="/contact">Contact Us</a>
             <a href="/login">Log In</a>
-            <a href="/dashboard">Dashboard</a>
         </div>
     </div>
     <div class="body">
         <h1>Welcome to This Page</h1>
         <p>You can see Download Your Favourite App form Here</p>
     </div>
+    {% set fname ='post.img_link' %}
     <div class="posts">
-        <img href="{{ url_for('static', filename='logo.png')}}" alt="logo " height="80px " width="80px ">
+        <img href="{{ url_for('static', filename=fname)}}" alt="logo " height="80px " width="80px ">
         <p class="h ">{{post.title}}</p>
         <a href="{{post.dn_link}} " target="_blank " id="download">Download</a>
         <p class="d ">{{post.details}}</p>
@@ -162,6 +162,7 @@
     </div>
     <br>
     <p class="date ">Published On: {{post.date}}</p>
+    <br><br>
     <div class="footer ">
         <a href="https://saptarshichakraborty.wix.com/tgsweb " target="_blank " id="img1 "><img src="{{ url_for( 'static', filename='website_icon.png' )}} " alt="My Online Website " height="50px " width="50px "></a>
         <a href="https://github.com/Saptarshi-Chakraborty-sb " target="_blank " id="img2 "><img src="{{ url_for( 'static', filename='github_icon.png' )}} " alt="My Online Website " height="50px " width="50px "></a>

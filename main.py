@@ -1,6 +1,6 @@
 import email
 from os import name
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session,redirect
 from flask.signals import message_flashed
 from flask_sqlalchemy import SQLAlchemy
 from datetime import date, datetime
@@ -12,6 +12,7 @@ with open('saptarshi.json', 'r') as c:
     params = json.load(c)["params"]
 
 app = Flask(__name__)
+app.secret_key='Saptarshi-secret-key'
 app.config.update(
     MAIL_SERVER='smtp.gmail.com',
     MAIL_PORT=456,
@@ -23,7 +24,8 @@ mail = Mail(app)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = params['database_uri']
 db = SQLAlchemy(app)
-# Note: If "No Module named MySQldb" error comes run "pip install mysqlclient" in Windows Powershell Admin
+# Note: If "No Module named MySQldb" error comes, run "pip install mysqlclient" in Windows Powershell Admin
+
 
 class Contacts(db.Model):
     sno = db.Column(db.Integer, nullable=False, primary_key=True)
@@ -32,6 +34,7 @@ class Contacts(db.Model):
     email = db.Column(db.String(50), nullable=False, primary_key=False)
     msg = db.Column(db.String(150), nullable=False, primary_key=False)
     date = db.Column(db.String(17), nullable=True, primary_key=False)
+
 
 class Posts(db.Model):
     sno = db.Column(db.Integer, nullable=False, primary_key=True)
@@ -46,8 +49,8 @@ class Posts(db.Model):
 # ~~~~ Home Page ~~~~
 @app.route("/")
 def home_route():
-    posts=Posts.query.filter_by().all()
-    return render_template('index.html',params=params,posts=posts)
+    posts = Posts.query.filter_by().all()[0:params['no_of_posts']]
+    return render_template('index.html', params=params, posts=posts)
 
 
 # ~~~~ Contact Page ~~~~
@@ -67,33 +70,49 @@ def contact_route():
         # mail.send_message('New Response in Website, form '+ name,
         #           sender=name,
         #           recipients=[params['email-user']],
-        #           body="New Responce form Contacts"+"\n" + "Name : " + name + "\n" + "Email : " + email + "\n" + "Message : " + message 
+        #           body="New Responce form Contacts"+"\n" + "Name : " + name + "\n" + "Email : " + email + "\n" + "Message : " + message
         #           )
-    return render_template('contact.html',params=params)
+    return render_template('contact.html', params=params)
 
 
 # ~~~~ Log In Page ~~~~~
-@app.route("/login")
+@app.route("/login", methods=['GET', 'POST'])
 def login_route():
-    return render_template('login.html',params=params)
+    if ('user' in session  and session['user'] == params['admin_username']):
+        return render_template('dashboard.html')
+
+    if request.method == 'POST':
+        username = request.form.get('uname')
+        userpass = request.form.get('passw')
+        if (username == params['admin_username'] and userpass == params['admin_password']):
+            session['user'] = username
+            return render_template('dashboard.html')
+        else:
+            return render_template('index.html')
+    else:
+        return render_template('login.html', params=params)
+
+
+# ~~~~ Log Out ~~~~
+@app.route('/logout')
+def logout_route():
+    session.pop('user')
+    return redirect('/login')
 
 
 # ~~~~ Posts Page ~~~~
 @app.route("/post/<string:post_slug>", methods=['GET'])
 def posts_route(post_slug):
-    post=Posts.query.filter_by(slug=post_slug).first()
+    post = Posts.query.filter_by(slug=post_slug).first()
 
-
-
-
-    return render_template('post.html',params=params,post=post)
+    return render_template('post.html', params=params, post=post)
 
 # ~~~~ Dashboard Page ~~~~
 
 
-@app.route("/dashboard")
+@app.route("/dashboard_FtIux7tirSsmzYYkPLrcY")
 def dashboard_route():
-    return render_template('dashboard.html',params=params)
+    return render_template('dashboard.html', params=params)
 
 
 app.run(debug=True)

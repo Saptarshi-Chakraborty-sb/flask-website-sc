@@ -1,19 +1,20 @@
-import email
 from operator import pos
-from os import name
+import math
+import os
+from werkzeug.utils import secure_filename
 from flask import Flask, render_template, request, session, redirect
-from flask.signals import message_flashed
 from flask_sqlalchemy import SQLAlchemy
-from datetime import date, datetime
+from datetime import datetime
 from flask_mail import Mail, Message
 import json
-
 
 with open('saptarshi.json', 'r') as c:
     params = json.load(c)["params"]
 
+
 app = Flask(__name__)
 app.secret_key = 'Saptarshi-secret-key'
+app.config['UPLOAD_FOLDER'] = params['upload_location']
 app.config.update(
     MAIL_SERVER='smtp.gmail.com',
     MAIL_PORT=456,
@@ -36,7 +37,6 @@ class Contacts(db.Model):
     msg = db.Column(db.String(150), nullable=False, primary_key=False)
     date = db.Column(db.String(17), nullable=True, primary_key=False)
 
-
 class Posts(db.Model):
     sno = db.Column(db.Integer, nullable=False, primary_key=True)
     title = db.Column(db.String(50), nullable=False, primary_key=False)
@@ -50,8 +50,30 @@ class Posts(db.Model):
 # ~~~~ Home Page ~~~~
 @app.route("/")
 def home_route():
-    posts = Posts.query.filter_by().all()[0:params['no_of_posts']]
-    return render_template('index.html', params=params, posts=posts)
+    posts = Posts.query.filter_by().all()
+    last=math.ceil(len(posts)/int(params['no_of_posts']))
+
+    page = request.args.get('page')
+    if (not str(page).isnumeric()):
+        page=1
+    page=int(page)
+
+    posts=posts[(page-1)*int(params['no_of_posts']):(page-1)*int(params['no_of_posts']) + int(params['no_of_posts'])]
+
+    if(page==1):
+        prev="#"
+        next="/?page=" + str(page + 1)
+
+    elif(page==last):
+        prev="/?page=" + str(page - 1)
+        next="#"
+
+    else:
+        prev="/?page=" + str(page - 1)
+        next="/?page=" + str(page + 1)
+        
+
+    return render_template('index.html', params=params, posts=posts,prev=prev, next=next)
 
 
 # ~~~~ Contact Page ~~~~
@@ -141,6 +163,32 @@ def edit_route(sno):
     return render_template('edit.html', params=params,post=post,sno=sno)
 
 
+# ~~~~ Delete Post ~~~~
+@app.route("/delete/<string:sno>", methods=['GET', 'POST'])
+def delete_route(sno):
+    if ('user' in session and session['user'] == params['admin_username']):
+        post=Posts.query.filter_by(sno=sno).first()
+        db.session.delete(post)
+        db.session.commit()
+
+        return redirect('/login')
+    else:
+        return redirect('/login')
+
+
+
+
+# ~~~~ File Uploader ~~~~
+@app.route("/uploader", methods=['GET','POST'])
+def upload_route():
+    if ('user' in session and session['user'] == params['admin_username']):
+        if(request.method) == "POST":
+            f=request.files['file1']
+            f.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(f.filename)))
+            return redirect('/login')
+
+
+# ~~~~ None Page ~~~~
 @app.route("/none")
 def none():
     return "None is Here"

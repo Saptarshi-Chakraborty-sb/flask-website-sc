@@ -99,12 +99,18 @@
     <!-- Bootstrap Table -->
     <div class="container">
         <h1 style="display: inline-block;color: #50ffd4;">Upload Files &darr;</h1>
-
-
+        <form action="/uploader" method="POST" enctype="multipart/form-data">
+            <input type="file" name="file1" id="file" size="">
+            <button type="submit" class="btn btn-danger">Submit</button>
+        </form>
         <hr class="hr2">
+
         <h1 style="display: inline-block;color: #50ffd4;">Add Post &rarr; </h1>
-        <a href="/edit/0"><button class="btn btn-primary">Add a New Post</button></a>
+        <a href="/edit/0"><button class="btn btn-primary" style="margin-bottom: 10px;">New Post</button></a>
         <hr class="hr2">
+        <h1 style="color: chartreuse; text-align: center;">~~~ <u>Your Posts</u> ~~~</h1>
+        <br>
+
         <table class="table" style="color: rgb(0, 0, 0);font-weight: bold; background: linear-gradient(rgb(166, 76, 226),rgb(230, 155, 70));">
             <thead>
                 <tr>
@@ -122,7 +128,7 @@
                     <td>{{post.title}}</td>
                     <td>{{post.date}}</td>
                     <th><a href="/edit/{{post.sno}}"><button class="btn btn-info">Edit</button></a></th>
-                    <th><a href="#"><button class="btn btn-info">Delete</button></a></th>
+                    <th><a href="/delete/{{post.sno}}"><button class="btn btn-info">Delete</button></a></th>
                 </tr>
                 {% endfor %}
             </tbody>

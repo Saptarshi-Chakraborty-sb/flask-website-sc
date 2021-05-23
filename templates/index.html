@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='logo.png')}}" />
     <title>Home</title>
     <style>
@@ -17,15 +20,15 @@
             color: azure;
         }
         
-        .navbar {
+        .navbar2 {
             display: inline-block;
             /* position: relative;
             left: 60%;
             top: 0px; */
         }
         
-        .navbar a,
-        .navbar a:active {
+        .navbar2 a,
+        .navbar2 a:active {
             /* border: 3px solid black; */
             color: beige;
             text-decoration: none;
@@ -34,7 +37,7 @@
             margin: 0%;
         }
         
-        .navbar a:hover {
+        .navbar2 a:hover {
             /* border: 3px solid rgb(247, 4, 4); */
             background: rgba(245, 222, 179, 0.466);
             color: rgb(4, 15, 0);
@@ -44,7 +47,7 @@
             margin: 0%;
         }
         
-        .header {
+        .header2 {
             padding: 0%;
             margin: 0%;
             /* border: 3px solid rgba(229, 229, 188, 0.986); */
@@ -52,7 +55,7 @@
             background: linear-gradient(50deg, rgb(24, 23, 23), rgb(255, 0, 0), rgb(5, 240, 208), rgb(255, 0, 0), rgb(24, 23, 23));
         }
         
-        .footer {
+        .footer2 {
             /* border: 3px solid Black; */
             background-color: cadetblue;
             width: 100%;
@@ -62,13 +65,13 @@
             margin: auto;
         }
         
-        .footer a img {
+        .footer2 a img {
             align-items: center;
             /* display: inline -block; */
             margin: auto;
         }
         
-        .footer .social {
+        .footer2 .social {
             /* display: inline-block; */
             padding: 0%;
             width: auto;
@@ -77,7 +80,7 @@
         }
         /* ~~~~~~~  Template CSS End  ~~~~~~~~ */
         
-        .content {
+        .content2 {
             /* display: inline-block; */
             padding: 7px;
             /* border: 2px solid white; */
@@ -85,43 +88,59 @@
             margin: auto;
         }
         
-        .content a {
+        .content2 a {
             text-decoration: none;
             color: cyan;
         }
         
-        .content h1 {
+        .content2 h1 {
             /* text-decoration: none; */
             color: rgb(241, 224, 203);
             margin: 0%;
             padding: 0%;
         }
         
-        .content h1:hover {
+        .content2 h1:hover {
             /* text-decoration: none; */
             color: rgb(0, 0, 0);
             margin: 0%;
             padding: 0%;
         }
         
-        .content p {
+        .content2 p {
             font-size: 25px;
             padding: 0%;
             margin: 7px;
         }
         
-        .content hr {
+        .content2 hr {
             border-color: rgb(255, 0, 255);
             background-color: rgb(255, 0, 255);
             padding: 0%;
             margin: auto;
         }
+        
+        .button2 {
+            margin-left: 20%;
+            color: aliceblue;
+            background-color: rgb(0, 132, 255);
+            font-size: larger;
+        }
+        
+        .button3 {
+            float: right;
+            margin-right: 20%;
+            color: aliceblue;
+            background-color: rgb(0, 132, 255);
+            font-size: larger;
+        }
     </style>
 </head>
 
 <body>
-    <div class="header">
-        <div class="navbar">
+    <div class="header2">
+        <div class="navbar2">
+            <a href="/">Home</a>
             <a href="/contact">Contact Us</a>
             <a href="/login">Log In</a>
         </div>
@@ -137,7 +156,7 @@
         <hr>
         <p></p>
         {% for post in posts %}
-        <div class="content">
+        <div class="content2">
             <table>
                 <tr>
                     <td>
@@ -153,17 +172,18 @@
                 </tr>
             </table>
             <hr>
-            <br>
+            <p class="pro"></p>
         </div>
         {% endfor %}
+        <a href="{{prev}}" class="btn button2"><span style='font-size:20px;margin: 0%;padding: 0%;'>&#8636;</span>Previous</a>
+        <a href="{{next}}" class="btn button3">&nbsp; Next<span style='font-size:20px;margin: 0%;padding: 0%;'>&#8640;</span> &nbsp;</a>
     </div>
-
     <br><br>
-    <!-- <div class="footer">
+    <!-- <div class="footer2">
         <div class="social">
             <a href="https://saptarshichakraborty.wix.com/tgsweb" target="_blank" id="img1"><img src="{{ url_for('static', filename='website_icon.png')}}" alt="My Online Website" height="50px" width="50px"></a>
-            <a href="https://github.com/Saptarshi-Chakraborty-sb" target="_blank" id="img2"><img src="{{ url_for('static', filename='github_icon.png')}}" alt="My Online Website" height="50px" width="50px"></a>
-        </div>
+        <a href="https://github.com/Saptarshi-Chakraborty-sb" target="_blank" id="img2"><img src="{{ url_for('static', filename='github_icon.png')}}" alt="My Online Website" height="50px" width="50px"></a>
+    </div>
     </div> -->
 </body>
 

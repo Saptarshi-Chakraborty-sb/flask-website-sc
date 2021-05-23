@@ -85,49 +85,37 @@
             <a href="/">Home</a>
             <a href="/contact">Contact Us</a>
             <a href="/logout">Log Out</a>
+            <a href="/login">Admin Pannel</a>
         </div>
     </div>
     <div class="body2">
         <h1>
-            <center>Welcome Admin | You are Logged In</center>
+            <center>Edit or Add Post</center>
         </h1>
-        <p>
-            &nbsp; You can Add - Delete - Edit Posts Here &nbsp;
-        </p>
     </div>
-    <br><br>
+    <br>
     <!-- Bootstrap Table -->
     <div class="container">
-        <h1 style="display: inline-block;color: #50ffd4;">Upload Files &darr;</h1>
 
-
-        <hr class="hr2">
-        <h1 style="display: inline-block;color: #50ffd4;">Add Post &rarr; </h1>
-        <a href="/edit/0"><button class="btn btn-primary">Add a New Post</button></a>
-        <hr class="hr2">
-        <table class="table" style="color: rgb(0, 0, 0);font-weight: bold; background: linear-gradient(rgb(166, 76, 226),rgb(230, 155, 70));">
-            <thead>
-                <tr>
-                    <th>Sno</th>
-                    <th>Title</th>
-                    <th>Date</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for post in posts %}
-                <tr>
-                    <td>{{post.sno}}</td>
-                    <td>{{post.title}}</td>
-                    <td>{{post.date}}</td>
-                    <th><a href="/edit/{{post.sno}}"><button class="btn btn-info">Edit</button></a></th>
-                    <th><a href="#"><button class="btn btn-info">Delete</button></a></th>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <br>
+        <form action="/edit/{{sno}}" method="POST" novalidate>
+            <label for="ftitle">Title:</label>
+            <input type="text" value="{{post.title}}" name="ftitle" class="form-control" placeholder="Enter Title" id="ftitle">
+            <label for="f_slug">Slug:</label>
+            <input type="text" value="{{post.slug}}" name="fslug" class="form-control" placeholder="Enter Slug" id="f_slug">
+            <label for="fdn">Download Link:</label>
+            <input type="text" value="{{post.dn_link}}" name="fdownload" class="form-control" placeholder="Enter Download Link" id="fdn">
+            <label for="fimg">Image Name:</label>
+            <input type="text" value="{{post.img_link}}" name="fimage" class="form-control" placeholder="Enter Image File Name" id="fimg">
+            <label for="fdetails">Details:</label>
+            <textarea name="fdetails" class="form-control" placeholder="Enter Details" id="fdetails">{{post.details}}</textarea>
+            <br>
+            <center>
+                <input type="submit" class="btn btn-primary" value="Submit">
+            </center>
+        </form>
     </div>
+    <br><br>
 </body>
 
 </html>

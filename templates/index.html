@@ -127,8 +127,15 @@
         </div>
     </div>
     <div class="body">
-        <h1>Welcome the Home Page....</h1>
-        <p>This Website serves the Download link of some Moded Applications</p>
+        <center>
+            <h1>Welcome to Home Page</h1>
+        </center>
+        <center>
+            <p>This Website serves the Download link of some Moded Applications</p>
+        </center>
+        <br>
+        <hr>
+        <p></p>
         {% for post in posts %}
         <div class="content">
             <table>
@@ -146,18 +153,18 @@
                 </tr>
             </table>
             <hr>
-            <br><br>
+            <br>
         </div>
         {% endfor %}
     </div>
 
     <br><br>
-    <div class="footer">
+    <!-- <div class="footer">
         <div class="social">
             <a href="https://saptarshichakraborty.wix.com/tgsweb" target="_blank" id="img1"><img src="{{ url_for('static', filename='website_icon.png')}}" alt="My Online Website" height="50px" width="50px"></a>
             <a href="https://github.com/Saptarshi-Chakraborty-sb" target="_blank" id="img2"><img src="{{ url_for('static', filename='github_icon.png')}}" alt="My Online Website" height="50px" width="50px"></a>
         </div>
-    </div>
+    </div> -->
 </body>
 
 </html>

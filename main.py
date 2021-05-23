@@ -1,6 +1,7 @@
 import email
+from operator import pos
 from os import name
-from flask import Flask, render_template, request, session,redirect
+from flask import Flask, render_template, request, session, redirect
 from flask.signals import message_flashed
 from flask_sqlalchemy import SQLAlchemy
 from datetime import date, datetime
@@ -12,7 +13,7 @@ with open('saptarshi.json', 'r') as c:
     params = json.load(c)["params"]
 
 app = Flask(__name__)
-app.secret_key='Saptarshi-secret-key'
+app.secret_key = 'Saptarshi-secret-key'
 app.config.update(
     MAIL_SERVER='smtp.gmail.com',
     MAIL_PORT=456,
@@ -61,12 +62,11 @@ def contact_route():
         phone = request.form.get('phone')
         email = request.form.get('email')
         message = request.form.get('message')
-# Push to Database
+        # Push to Database
         entry = Contacts(name=name, email=email, phone_num=phone,
                          msg=message, date=datetime.now())
         db.session.add(entry)
         db.session.commit()
-
         # mail.send_message('New Response in Website, form '+ name,
         #           sender=name,
         #           recipients=[params['email-user']],
@@ -78,17 +78,19 @@ def contact_route():
 # ~~~~ Log In Page ~~~~~
 @app.route("/login", methods=['GET', 'POST'])
 def login_route():
-    if ('user' in session  and session['user'] == params['admin_username']):
-        return render_template('dashboard.html')
+    if 'user' in session and session['user'] == params['admin_username']    :
+        posts = Posts.query.all()
+        return render_template('dashboard.html', params=params,posts=posts)
 
-    if request.method == 'POST':
+    if request.method == "POST":
         username = request.form.get('uname')
         userpass = request.form.get('passw')
         if (username == params['admin_username'] and userpass == params['admin_password']):
             session['user'] = username
-            return render_template('dashboard.html')
+            posts = Posts.query.all()
+            return render_template('dashboard.html', posts=posts)
         else:
-            return render_template('index.html')
+            return render_template('login.html')
     else:
         return render_template('login.html', params=params)
 
@@ -107,12 +109,40 @@ def posts_route(post_slug):
 
     return render_template('post.html', params=params, post=post)
 
-# ~~~~ Dashboard Page ~~~~
+
+# ~~~~ Edit Page ~~~~
+@app.route("/edit/<string:sno>", methods=['GET', 'POST'])
+def edit_route(sno):
+    if ('user' in session and session['user'] == params['admin_username']):
+        if(request.method) == "POST":
+            got_title = request.form.get('ftitle')
+            got_slug = request.form.get('fslug')
+            got_download = request.form.get('fdownload')
+            got_image = request.form.get('fimage')
+            got_details = request.form.get('fdetails')  
+            got_date = datetime.now()
+
+            if sno == '0':
+                post = Posts(title=got_title, slug=got_slug,dn_link=got_download,img_link=got_image,details=got_details,date=got_date)
+                db.session.add(post)
+                db.session.commit()
+            else:
+                post=Posts.query.filter_by(sno=sno).first()
+                post.title=got_title
+                post.slug=got_slug
+                post.dn_link=got_download
+                post.img_link=got_image
+                post.details=got_details
+                post.date=got_date
+                db.session.commit()
+                return redirect('/login')
+ 
+    post=Posts.query.filter_by(sno=sno).first()
+    return render_template('edit.html', params=params,post=post,sno=sno)
 
 
-@app.route("/dashboard_FtIux7tirSsmzYYkPLrcY")
-def dashboard_route():
-    return render_template('dashboard.html', params=params)
-
+@app.route("/none")
+def none():
+    return "None is Here"
 
 app.run(debug=True)
